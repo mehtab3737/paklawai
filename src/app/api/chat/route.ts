@@ -45,7 +45,7 @@ export async function POST(request: Request) {
   // RAG: query Pinecone
   let sources: Source[] = []
   try {
-    sources = await queryPinecone(message, 5)
+    sources = await queryPinecone(message, 15)
   } catch (e) {
     console.error('Pinecone query failed:', e)
   }
@@ -130,7 +130,7 @@ export async function POST(request: Request) {
       'Content-Type': 'text/event-stream',
       'Cache-Control': 'no-cache',
       'Connection': 'keep-alive',
-      'X-Sources': JSON.stringify(sources),
+      'X-Sources': Buffer.from(JSON.stringify(sources)).toString('base64'),
     },
   })
 }

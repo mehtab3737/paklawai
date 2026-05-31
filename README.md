@@ -85,13 +85,15 @@ create policy "Users access their own messages"
 
 ## Ingesting Law Data
 
-1. Create a `/data` directory in the project root
-2. Add `.txt` files containing Pakistani law text
-3. Run the ingestion script:
+1. Create a `/data` directory in the project root.
+2. Add `.txt` files containing Pakistani law text. (If you have PDFs, you can use `python scripts/pdf_to_txt.py` to convert them to text).
+3. Run the ingestion script (which automatically parses `.env`):
 
 ```bash
-npx ts-node -e "require('dotenv').config({path:'.env.local'})" scripts/ingest.ts
+npx tsx scripts/ingest.ts
 ```
+
+If the ingestion process is interrupted, running the command again will automatically resume from the last successfully ingested file.
 
 ## Deploy to Vercel
 

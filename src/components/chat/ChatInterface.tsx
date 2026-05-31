@@ -69,7 +69,9 @@ export function ChatInterface({ sessionId, initialMessages }: ChatInterfaceProps
       }
 
       const sourcesHeader = response.headers.get('X-Sources')
-      const sources: Source[] = sourcesHeader ? JSON.parse(sourcesHeader) : []
+      const sources: Source[] = sourcesHeader
+        ? JSON.parse(atob(sourcesHeader))
+        : []
 
       const reader = response.body!.getReader()
       const decoder = new TextDecoder()
